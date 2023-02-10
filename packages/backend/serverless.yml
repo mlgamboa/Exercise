@@ -1,0 +1,41 @@
+service: backend
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+plugins:
+  - serverless-bundle
+  - serverless-offline
+  - serverless-express
+
+functions:
+  api:
+    handler: handler.handler
+    events:
+      - httpApi:
+          path: /{proxy+}
+          method: ANY
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - PoolId
+              - TenantId
+              - isEso
+              - userId
+            allowCredentials: true
+# functions:
+#   getAllItems:
+#     handler: handler.getAllItems
+#     events:
+#       - httpApi:
+#           path: /getAllItems
+#           method: get
