@@ -13,6 +13,19 @@ exports.getAllItemController = async (req, res) => {
 };
 
 // Function to add a new item in the DB
+exports.addItemWithQuantity = async (req, res) => {
+  try {
+    itemRepo.addItem((data) => {
+      res.status(201).json({
+        status: 201,
+        data: data,
+      });
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500);
+  }
+};
 
 // Function to delete an item in the DB
 exports.deleteAnItem = async (req, res) => {
